@@ -12,7 +12,7 @@ global db
 
 def get_db():
     client = MongoClient(CONNECTION_STRING)
-    return client["swagbro"]
+    return client["people_registration"]
 
 
 def get_doctors():
@@ -98,8 +98,10 @@ def generate_tests(doctors, nurses, auth_bodies):
         date = "2021-" + str(randint(1, 12)) + "-" + str(randint(1, 28))
         result = "Negative" if (randint(0, 100) / 100) <= (1 - POSITIVE_PROBABILITY) else "Positive"
 
+        auth_body = auth_bodies[randint(0, len(auth_bodies) - 1)].clone()
+        auth_body.set_as_single_department()
         tests.append(Test(date, types[randint(0, len(types) - 1)], result,
-                          place=auth_bodies[randint(0, len(auth_bodies) - 1)],
+                          place=auth_body,
                           doctors=doctors[randint(0, len(doctors) - 1)], nurses=nurses[randint(0, len(nurses) - 1)]))
 
     return tests
