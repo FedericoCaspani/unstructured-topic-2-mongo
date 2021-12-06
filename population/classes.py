@@ -82,6 +82,7 @@ class Vaccine:
     brand: str
     type: str
     lot: str
+    approved: bool
     production_date: str
     place: Place
     doctors: List[Worker] = []
@@ -93,6 +94,7 @@ class Vaccine:
         self.type = info[1]
         self.lot = info[2]
         self.production_date = info[3]
+        self.approved = True
         self.place = place
         self.doctors = []
         self.doctors.append(doctors)

@@ -12,7 +12,7 @@ global db
 
 def get_db():
     client = MongoClient(CONNECTION_STRING)
-    return client["people_registration"]
+    return client[DB_NAME]
 
 
 def get_doctors():
@@ -72,19 +72,21 @@ def generate_vaccines(doctors, nurses, auth_bodies):
     lots = [["1", 2021, 4, 5], ["2", 2021, 11, 1], ["3", 2021, 9, 21], ["4", 2021, 1, 25], ["5", 2021, 6, 19]]
 
     vaccines = []
-    for i in range(1, randint(MIN_V, MAX_V)):
-        sel_lot = lots[randint(0, len(lots) - 1)]
-        date = str(sel_lot[1]) + "-" + str(sel_lot[2] + 1) + "-" + str(sel_lot[3])
-        production_date = str(sel_lot[1]) + "-" + str(sel_lot[2]) + "-" + str(sel_lot[3])
-        info = [brands[randint(0, len(brands) - 1)], types[randint(0, len(types) - 1)], str(sel_lot[0]),
-                production_date]
+    quantity = randint(MIN_V, MAX_V)
+    if quantity > 0:
+        for i in range(quantity):
+            sel_lot = lots[randint(0, len(lots) - 1)]
+            date = str(sel_lot[1]) + "-" + str(sel_lot[2] + 1) + "-" + str(sel_lot[3])
+            production_date = str(sel_lot[1]) + "-" + str(sel_lot[2]) + "-" + str(sel_lot[3])
+            info = [brands[randint(0, len(brands) - 1)], types[randint(0, len(types) - 1)], str(sel_lot[0]),
+                    production_date]
 
-        auth_body = auth_bodies[randint(0, len(auth_bodies) - 1)].clone()
-        auth_body.set_as_single_department()
+            auth_body = auth_bodies[randint(0, len(auth_bodies) - 1)].clone()
+            auth_body.set_as_single_department()
 
-        vaccines.append(Vaccine(date=date, info=info, place=auth_body,
-                                doctors=doctors[randint(0, len(doctors) - 1)],
-                                nurses=nurses[randint(0, len(nurses) - 1)]))
+            vaccines.append(Vaccine(date=date, info=info, place=auth_body,
+                                    doctors=doctors[randint(0, len(doctors) - 1)],
+                                    nurses=nurses[randint(0, len(nurses) - 1)]))
 
     return vaccines
 
@@ -94,15 +96,17 @@ def generate_tests(doctors, nurses, auth_bodies):
     lots = [["1", "2021-04-05"], ["2", "2021-11-01"], ["3", "2021-09-21"], ["4", "2021-01-25"], ["5", "2021-06-19"]]
 
     tests = []
-    for i in range(MIN_T, MAX_T):
-        date = "2021-" + str(randint(1, 12)) + "-" + str(randint(1, 28))
-        result = "Negative" if (randint(0, 100) / 100) <= (1 - POSITIVE_PROBABILITY) else "Positive"
+    quantity = randint(MIN_T, MAX_T)
+    if quantity > 0:
+        for i in range(quantity):
+            date = "2021-" + str(randint(1, 12)) + "-" + str(randint(1, 28))
+            result = "Negative" if (randint(0, 100) / 100) <= (1 - POSITIVE_PROBABILITY) else "Positive"
 
-        auth_body = auth_bodies[randint(0, len(auth_bodies) - 1)].clone()
-        auth_body.set_as_single_department()
-        tests.append(Test(date, types[randint(0, len(types) - 1)], result,
-                          place=auth_body,
-                          doctors=doctors[randint(0, len(doctors) - 1)], nurses=nurses[randint(0, len(nurses) - 1)]))
+            auth_body = auth_bodies[randint(0, len(auth_bodies) - 1)].clone()
+            auth_body.set_as_single_department()
+            tests.append(Test(date, types[randint(0, len(types) - 1)], result,
+                              place=auth_body,
+                              doctors=doctors[randint(0, len(doctors) - 1)], nurses=nurses[randint(0, len(nurses) - 1)]))
 
     return tests
 
@@ -135,7 +139,7 @@ if __name__ == "__main__":
 
     # CONNECTING & INSERTING ON MONGO DATABASE ALL THE GENERATED PEOPLE IN JSON FORMAT
     db = get_db()
-    people_collection = db.get_collection("people_registration")
+    people_collection = db.get_collection(COLLECTION_NAME)
     for p in people:
         data_to_write = json.loads(p.toJSON())
         people_collection.insert_one(data_to_write)
