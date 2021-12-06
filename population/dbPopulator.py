@@ -135,6 +135,7 @@ if __name__ == "__main__":
 
     # CONNECTING & INSERTING ON MONGO DATABASE ALL THE GENERATED PEOPLE IN JSON FORMAT
     db = get_db()
+
     people_collection = db.get_collection("people_registration")
     for p in people:
         data_to_write = json.loads(p.toJSON())
