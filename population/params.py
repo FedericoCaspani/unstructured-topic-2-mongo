@@ -1,5 +1,7 @@
 
-CONNECTION_STRING = "mongodb+srv://root:root@cluster0.dx6xp.mongodb.net/vaccines?retryWrites=true&w=majority"
+CONNECTION_STRING = "mongodb+srv://root:password*qwerty@cluster0.63i2t.mongodb.net/test"
+DB_NAME = "people_registration"
+COLLECTION_NAME = "people_registration"
 
 # &&&&&&&& GENERATION CONSTANTS &&&&&&&&
 
