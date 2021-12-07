@@ -69,22 +69,37 @@ def generate_emergency_contacts():
 def generate_vaccines(doctors, nurses, auth_bodies):
     brands = ["Pfizer", "Astrazeneca", "Sputnik V", "Johnson&Johnson", "Moderna"]
     types = ["Inactivated", "mRNA", "Viral Vector", "Toxoid"]
-    lots = [["1", 2021, 4, 5], ["2", 2021, 11, 1], ["3", 2021, 9, 21], ["4", 2021, 1, 25], ["5", 2021, 6, 19]]
+    lots = [["1", "2021", "04", "05"], ["2", "2021", "11", "01"], ["3", "2021", "09", "21"], ["4", "2021", "01", "25"], ["5", "2021", "06", "19"]]
 
     vaccines = []
     quantity = randint(MIN_V, MAX_V)
     if quantity > 0:
         for i in range(quantity):
             sel_lot = lots[randint(0, len(lots) - 1)]
-            date = str(sel_lot[1]) + "-" + str(sel_lot[2] + 1) + "-" + str(sel_lot[3])
-            production_date = str(sel_lot[1]) + "-" + str(sel_lot[2]) + "-" + str(sel_lot[3])
+
+            # vaccine is taken always one month after its production
+            month = int(sel_lot[2]) + 1
+            if month < 10:
+                month = "0" + str(month)
+            else:
+                month = str(month)
+            date = sel_lot[1] + "-" + month + "-" + sel_lot[3]
+            production_date = sel_lot[1] + "-" + sel_lot[2] + "-" + sel_lot[3]
+
             info = [brands[randint(0, len(brands) - 1)], types[randint(0, len(types) - 1)], str(sel_lot[0]),
                     production_date]
 
             auth_body = auth_bodies[randint(0, len(auth_bodies) - 1)].clone()
             auth_body.set_as_single_department()
 
-            vaccines.append(Vaccine(date=date, info=info, place=auth_body,
+            # counting already present vaccinations of the same type
+            dose_number = 1
+            for v in vaccines:
+                if v.type == info[1]:
+                    dose_number += 1
+
+            # expiration date is calculated inside Vaccine constructor basing on dose_number
+            vaccines.append(Vaccine(dose_number=dose_number, date=date, info=info, place=auth_body,
                                     doctors=doctors[randint(0, len(doctors) - 1)],
                                     nurses=nurses[randint(0, len(nurses) - 1)]))
 
