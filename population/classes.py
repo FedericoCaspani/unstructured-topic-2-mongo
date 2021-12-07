@@ -1,6 +1,7 @@
 import json
 from random import randint
 from typing import List
+from datetime import datetime, timedelta
 
 
 # &&&&&&&& CLASSES &&&&&&&&
@@ -79,6 +80,7 @@ class Place:
 # class for modeling Vaccines
 class Vaccine:
     date: str
+    expiration_date: str
     brand: str
     type: str
     lot: str
@@ -88,8 +90,16 @@ class Vaccine:
     doctors: List[Worker] = []
     nurses: List[Worker] = []
 
-    def __init__(self, date, info, place, doctors, nurses):
+    def __init__(self, dose_number, date, info, place, doctors, nurses):
         self.date = date
+
+        date2 = datetime.strptime(date, "%Y-%m-%d")
+        if dose_number == 1:
+            date2 += timedelta(days=21)
+        else:
+            date2 += timedelta(days=365)
+        self.expiration_date = date2.strftime("%Y-%m-%d")
+
         self.brand = info[0]
         self.type = info[1]
         self.lot = info[2]
