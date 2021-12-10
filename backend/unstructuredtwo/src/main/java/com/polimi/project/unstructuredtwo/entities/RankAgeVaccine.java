@@ -8,10 +8,11 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @Getter
 @Setter
 @AllArgsConstructor
-public class PlaceRank {
+public class RankAgeVaccine {
 
-    @Field(name = "_id")
-    private Place place;
-    private Integer count;
+    @Field("_id")
+    private String ageCategory;
 
+    @Field("vaccination_rate")
+    private Double vaccinationRatio;
 }

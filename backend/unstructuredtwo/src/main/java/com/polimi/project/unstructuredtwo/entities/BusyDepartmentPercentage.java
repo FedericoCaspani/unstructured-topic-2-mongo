@@ -1,5 +1,6 @@
 package com.polimi.project.unstructuredtwo.entities;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -7,12 +8,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class Place {
+public class BusyDepartmentPercentage {
 
-    private String address;
-    private String departments;
-    private String entity;
-    private String gps;
-    private String name;
+    private Long id;
+
+    private Double percentageOfPossibleOptimization;
 
 }

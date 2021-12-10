@@ -8,10 +8,14 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @Getter
 @Setter
 @AllArgsConstructor
-public class PlaceRank {
+public class Ratio {
 
-    @Field(name = "_id")
-    private Place place;
-    private Integer count;
+    @Field("_id")
+    private Long id;
 
+    @Field("num_tot")
+    private Double numTot;
+
+    @Field("num_pos")
+    private Double numPos;
 }

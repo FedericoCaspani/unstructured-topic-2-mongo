@@ -3,16 +3,15 @@ package com.polimi.project.unstructuredtwo.entities;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 @Getter
 @Setter
 @AllArgsConstructor
-public class Place {
+public class VaccineType {
 
-    private String address;
-    private String departments;
-    private String entity;
-    private String gps;
-    private String name;
+    @Field("_id")
+    private String vaccine;
+    private Integer count;
 
 }

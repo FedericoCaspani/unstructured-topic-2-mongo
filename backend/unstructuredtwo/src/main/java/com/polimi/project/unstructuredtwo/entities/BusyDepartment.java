@@ -7,12 +7,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class Place {
+public class BusyDepartment {
 
-    private String address;
-    private String departments;
-    private String entity;
-    private String gps;
-    private String name;
+    private Long id;
+    private Double stdDev;
+    private Double avg;
 
 }
