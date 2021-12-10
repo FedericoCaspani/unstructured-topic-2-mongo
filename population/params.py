@@ -1,5 +1,4 @@
-
-CONNECTION_STRING = "mongodb+srv://root:root@cluster0.dx6xp.mongodb.net/test"
+CONNECTION_STRING = ""
 DB_NAME = "people_registration"
 COLLECTION_NAME = "people_registration"
 
