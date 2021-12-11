@@ -158,7 +158,7 @@ public interface PersonRepository extends MongoRepository<Person, String>, Creat
                     "    date: {$max: '$vaccine_date'}\n" +
                     "  }}"
     })
-    GreenPass validGreenPassVaccine(String taxCode);
+    Optional<GreenPass> validGreenPassVaccine(String taxCode);
 
     // C1.1
     @Query("{taxCode: '?0'}")

@@ -82,12 +82,21 @@ public class PersonService {
     }
 
     public GreenPass validGreenPassVacine(String taxCode) {
-        return personRepository.validGreenPassVaccine(taxCode);
+        Optional<GreenPass> green = personRepository.validGreenPassVaccine(taxCode);
+        if (green.isEmpty()) {
+            return null;
+        } else {
+            return green.get();
+        }
     }
 
     public GreenPass validGreenPassSwab(String taxCode) throws ParseException {
         LocalDateTime now = LocalDateTime.now().minus(2, ChronoUnit.DAYS);
-        return personRepository.validGreenPassSwab(taxCode, Date.from(now.atZone(ZoneId.systemDefault()).toInstant()));
+        Optional<GreenPass> green = personRepository.validGreenPassSwab(taxCode, Date.from(now.atZone(ZoneId.systemDefault()).toInstant()));
+        if (green.isEmpty()) {
+           return null;
+        }
+        return green.get();
     }
 
     public boolean checkPerson(String taxCode) {

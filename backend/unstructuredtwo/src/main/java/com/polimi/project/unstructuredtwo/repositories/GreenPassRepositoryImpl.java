@@ -18,7 +18,7 @@ public class GreenPassRepositoryImpl implements GreenPassRepository {
     MongoTemplate mongoTemplate;
 
     @Override
-    public GreenPass validGreenPassSwab(String taxCode, Date date) {
+    public Optional<GreenPass> validGreenPassSwab(String taxCode, Date date) {
         Aggregation aggregation = newAggregation(
                 unwind("tests"),
                 match(Criteria.where("taxCode").is(taxCode)),
@@ -27,6 +27,6 @@ public class GreenPassRepositoryImpl implements GreenPassRepository {
                 sort(Sort.Direction.DESC, "test_date"),
                 group("test_date").first("test_date").as("date")
         );
-        return mongoTemplate.aggregate(aggregation, "people_registration", GreenPass.class).getMappedResults().get(0);
+        return Optional.of(mongoTemplate.aggregate(aggregation, "people_registration", GreenPass.class).getMappedResults().get(0));
     }
 }
