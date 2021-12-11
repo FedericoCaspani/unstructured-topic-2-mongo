@@ -16,14 +16,18 @@ class _RankByVaccinationTypeState extends State<RankByVaccinationType> {
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-        aspectRatio: 1.7,
-        child: Card(
-          elevation: 0,
-          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(4))),
-          color: const Color(0xff2c4260),
-          child: _BarChart(vaccineType: widget.vaccineType,),
-        ),
+    return Container(
+      height: 200,
+      width: double.infinity,
+      child: AspectRatio(
+          aspectRatio: 1.7,
+          child: Card(
+            elevation: 0,
+            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(4))),
+            color: const Color(0xff2c4260),
+            child: _BarChart(vaccineType: widget.vaccineType,),
+          ),
+      ),
     );
   }
 

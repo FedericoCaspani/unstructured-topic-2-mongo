@@ -14,10 +14,10 @@ class RankAllPlacesWithMostVisits extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
 
     return Container(
-      height: size.height / 4,
+      height: 280,
+      width: double.infinity,
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
         child: Stack(

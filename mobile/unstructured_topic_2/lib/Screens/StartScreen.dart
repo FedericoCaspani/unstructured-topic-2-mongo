@@ -4,7 +4,6 @@ import 'package:unstructured_topic_2/Screens/GreenPassTab/GreenPassChoose.dart';
 import 'package:unstructured_topic_2/Screens/InsertTab/InsertMain.dart';
 import 'package:unstructured_topic_2/Screens/SettingsTab/SettingsMain.dart';
 import 'package:unstructured_topic_2/constraints.dart';
-import '';
 
 
 /*
@@ -21,7 +20,7 @@ class StartScreen extends StatefulWidget {
 
 class _StartScreenState extends State<StartScreen> {
 
-  static const lengthTabs = 2;
+  static const lengthTabs = 3;
 
   @override
   Widget build(BuildContext context) {
@@ -31,18 +30,20 @@ class _StartScreenState extends State<StartScreen> {
           body: NestedScrollView(
             headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
               return <Widget> [
-                const SliverAppBar(
+                SliverAppBar(
                   pinned: true,
                   floating: true,
-                  bottom: TabBar(
-                    isScrollable: true,
-                    indicator: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    ),
-                    tabs: [
-                      Tab(icon: Icon(Icons.analytics_outlined),),
-                      Tab(icon: Icon(Icons.event_note_outlined),),
-                      Tab(icon: Icon(Icons.settings_outlined),)
+                  flexibleSpace: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      TabBar(
+                        indicatorWeight: 5.0,
+                        tabs: [
+                          Tab(icon: Icon(Icons.analytics_outlined),),
+                          Tab(icon: Icon(Icons.event_note_outlined),),
+                          Tab(icon: Icon(Icons.settings_outlined),)
+                        ],
+                      )
                     ],
                   ),
                 )

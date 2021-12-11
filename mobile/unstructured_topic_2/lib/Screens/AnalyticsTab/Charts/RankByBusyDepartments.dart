@@ -107,27 +107,31 @@ class _BarChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.start,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Text(text, style: const TextStyle(fontSize: 24),),
-          const SizedBox(height: 4,),
-          Padding (
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: BarChart(
-              BarChartData(
-                barTouchData: _barTouchDate,
-                titlesData: titlesData,
-                borderData: borderData,
-                barGroups: barGroups,
-                alignment: BarChartAlignment.spaceAround,
-                maxY: 20,
-              )
-          )
-        ),
-      ]
+    return Container(
+      height: 200,
+      width: double.infinity,
+      child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Text(text, style: const TextStyle(fontSize: 24),),
+            const SizedBox(height: 4,),
+            Padding (
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: BarChart(
+                BarChartData(
+                  barTouchData: _barTouchDate,
+                  titlesData: titlesData,
+                  borderData: borderData,
+                  barGroups: barGroups,
+                  alignment: BarChartAlignment.spaceAround,
+                  maxY: 20,
+                )
+            )
+          ),
+        ]
+      ),
     );
   }
 }

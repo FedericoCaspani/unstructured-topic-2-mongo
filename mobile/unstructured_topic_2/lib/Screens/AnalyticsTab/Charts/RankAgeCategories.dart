@@ -12,10 +12,8 @@ class RankAgeCategories extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
 
     return Container(
-      height: size.height / 4,
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
         child: Stack(
@@ -32,7 +30,7 @@ class RankAgeCategories extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: SizedBox(
-                      height: 180,
+                      height: 150,
                       width: 300,
                       child: BarChart(
                           BarChartData(

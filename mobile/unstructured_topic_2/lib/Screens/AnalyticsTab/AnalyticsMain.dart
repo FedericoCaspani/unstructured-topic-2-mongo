@@ -1,3 +1,4 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:unstructured_topic_2/BusinessLogic/DataModels/BusyDepartment.dart';
 import 'package:unstructured_topic_2/BusinessLogic/DataModels/PlaceRank.dart';
@@ -31,40 +32,49 @@ class _AnalyticsMainState extends State<AnalyticsMain> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-      body: Column(
-        children: <Widget>[
-          const SizedBox(height: 50.0,),
-          RankAllPlacesWithMostVisits(
-            placeRank: placeRank,
-            text: "Rank All The Most Visited Places",
+      body: Container(
+        height: double.infinity,
+        width: double.infinity,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              const SizedBox(height: 10.0,),
+              RankAllPlacesWithMostVisits(
+                placeRank: placeRank,
+                text: "Rank All The Most Visited Places",
+              ),
+              const SizedBox(height: 10.0),
+              RankAllPlacesWithMostVisits(
+                placeRank: placeRank,
+                text: "Rank The Most Visited Test Places",
+              ),
+              const SizedBox(height: 10.0),
+              RankAllPlacesWithMostVisits(
+                placeRank: placeRank,
+                text: "Rank The Most Visited Vaccine Places",
+              ),
+              const SizedBox(height: 10.0,),
+              RankByVaccinationType(vaccineType: vaccineType),
+              const SizedBox(height: 10.0,),
+              RankByBusyDepartments(
+                placeRank: departmentRank,
+                optimization: busyDepartment.percentageOfPossibleOptimization.toString(),
+              ),
+              const SizedBox(height: 10.0,),
+              InfectedTestedRatio(
+                  infected: ratio.numPos.toInt(),
+                  notInfected: ratio.numTot.toInt() - ratio.numPos.toInt(),
+                  ratio: ratio.numPos / ratio.numTot,
+              ),
+              const SizedBox(height: 10.0,),
+             RankAgeCategories(rankAgeCategories: rankAge),
+             const SizedBox(height: 10.0,),
+            ],
           ),
-          const SizedBox(height: 20.0),
-          RankAllPlacesWithMostVisits(
-            placeRank: placeRank,
-            text: "Rank The Most Visited Test Places",
-          ),
-          const SizedBox(height: 20.0),
-          RankAllPlacesWithMostVisits(
-            placeRank: placeRank,
-            text: "Rank The Most Visited Vaccine Places",
-          ),
-          const SizedBox(height: 20.0,),
-          RankByVaccinationType(vaccineType: vaccineType),
-          const SizedBox(height: 20.0,),
-          RankByBusyDepartments(
-            placeRank: departmentRank,
-            optimization: busyDepartment.percentageOfPossibleOptimization.toString(),
-          ),
-          const SizedBox(height: 20.0,),
-          InfectedTestedRatio(
-              infected: ratio.numPos.toInt(),
-              notInfected: ratio.numTot.toInt() - ratio.numPos.toInt(),
-              ratio: ratio.numPos / ratio.numTot,
-          ),
-          const SizedBox(height: 20.0,),
-          RankAgeCategories(rankAgeCategories: rankAge),
-        ],
+        ),
       ),
     );
   }
