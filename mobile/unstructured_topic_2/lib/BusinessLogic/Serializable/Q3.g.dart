@@ -8,14 +8,14 @@ part of 'Q3.dart';
 
 BusyDepartment _$BusyDepartmentFromJson(Map<String, dynamic> json) =>
     BusyDepartment(
-      id: json['id'] as int,
+      id: 0,
       percentageOfPossibleOptimization:
           (json['percentageOfPossibleOptimization'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$BusyDepartmentToJson(BusyDepartment instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      'id': 0,
       'percentageOfPossibleOptimization':
           instance.percentageOfPossibleOptimization,
     };

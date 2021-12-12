@@ -21,7 +21,6 @@ class _InsertVaccineState extends State<InsertVaccine> {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      backgroundColor: kPrimaryLightColor,
       body: SizedBox(
         height: size.height,
         width: size.width,

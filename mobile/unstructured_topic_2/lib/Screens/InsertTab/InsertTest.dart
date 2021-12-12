@@ -20,7 +20,6 @@ class _InsertTestState extends State<InsertTest> {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      backgroundColor: kPrimaryLightColor,
       body: SizedBox(
         height: size.height,
         width: size.width,

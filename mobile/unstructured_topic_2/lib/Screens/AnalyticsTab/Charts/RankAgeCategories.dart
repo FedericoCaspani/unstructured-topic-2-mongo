@@ -35,7 +35,7 @@ class RankAgeCategories extends StatelessWidget {
                       child: BarChart(
                           BarChartData(
                               alignment: BarChartAlignment.center,
-                              maxY: 10,
+                              maxY: 1,
                               minY: 0,
                               groupsSpace: 5,
                               barTouchData: BarTouchData(
@@ -76,9 +76,6 @@ class RankAgeCategories extends StatelessWidget {
                                         fontSize: 14
                                     ),
                                     margin: 16,
-                                    getTitles: (double value) {
-                                      return rankAgeCategories[value.toInt()].ageCategory.substring(0, 3);
-                                    }
                                 ),
                                 leftTitles: SideTitles(
                                     showTitles: false

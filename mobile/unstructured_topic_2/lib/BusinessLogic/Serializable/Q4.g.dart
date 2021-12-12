@@ -8,7 +8,7 @@ part of 'Q4.dart';
 
 RatioInfected _$RatioInfectedFromJson(Map<String, dynamic> json) =>
     RatioInfected(
-      id: json['id'] as int,
+      id: 0,
       numTot: (json['numTot'] as num).toDouble(),
       numPos: (json['numPos'] as num).toDouble(),
       percentage: (json['percentage'] as num).toDouble(),
@@ -16,7 +16,7 @@ RatioInfected _$RatioInfectedFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$RatioInfectedToJson(RatioInfected instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      'id': 0,
       'numTot': instance.numTot,
       'numPos': instance.numPos,
       'percentage': instance.percentage,

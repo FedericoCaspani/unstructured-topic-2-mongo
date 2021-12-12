@@ -1,4 +1,3 @@
-// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:unstructured_topic_2/BusinessLogic/API/API.dart';
 import 'package:unstructured_topic_2/BusinessLogic/DataModels/BusyDepartment.dart';
@@ -15,7 +14,6 @@ import 'package:unstructured_topic_2/Screens/AnalyticsTab/Charts/RankAgeCategori
 import 'package:unstructured_topic_2/Screens/AnalyticsTab/Charts/RankAllPlacesWithMostVisits.dart';
 import 'package:unstructured_topic_2/Screens/AnalyticsTab/Charts/RankByVaccinationType.dart';
 
-import 'Charts/RankByBusyDepartments.dart';
 import 'dart:math' as math;
 
 class AnalyticsMain extends StatefulWidget {
@@ -35,10 +33,10 @@ class _AnalyticsMainState extends State<AnalyticsMain> {
 
   List<VaccineTypeModel> vaccineType = <VaccineTypeModel>[];
 
-  late BusyDepartmentModel busyDepartment;
+  BusyDepartmentModel busyDepartment = new BusyDepartmentModel(id: 0, percentageOfPossibleOptimization: 100.0);
   List<PlaceRankDataModel> departmentRank = <PlaceRankDataModel>[];
 
-  late RatioModel ratio;
+  RatioModel ratio = new RatioModel(id: 0, numTot: 0, numPos: 0, percentage: 0);
 
   List<RankAgeVaccineModel> rankAge = <RankAgeVaccineModel>[];
 
@@ -162,6 +160,9 @@ class _AnalyticsMainState extends State<AnalyticsMain> {
             )
         );
         id++;
+        if (id == 5) {
+          break;
+        }
       }
       setState(() {
         departmentRank = placeRankLocal;
@@ -185,7 +186,7 @@ class _AnalyticsMainState extends State<AnalyticsMain> {
           RankAgeVaccineModel(
               id: id,
               ageCategory: p.ageCategory,
-              vaccineRatio: p.vaccineRatio,
+              vaccineRatio: p.vaccinationRatio,
               color: Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0)
           )
         );
@@ -212,23 +213,27 @@ class _AnalyticsMainState extends State<AnalyticsMain> {
               RankAllPlacesWithMostVisits(
                 placeRank: placeRankAllVisits,
                 text: "Rank All The Most Visited Places",
+                maxY: 20,
               ),
               const SizedBox(height: 10.0),
               RankAllPlacesWithMostVisits(
                 placeRank: placeRankTestVisits,
                 text: "Rank The Most Visited Test Places",
+                maxY: 10,
               ),
               const SizedBox(height: 10.0),
               RankAllPlacesWithMostVisits(
                 placeRank: placeRankVaccineVisits,
                 text: "Rank The Most Visited Vaccine Places",
+                maxY: 10
               ),
               const SizedBox(height: 10.0,),
               RankByVaccinationType(vaccineType: vaccineType),
               const SizedBox(height: 10.0,),
-              RankByBusyDepartments(
+              RankAllPlacesWithMostVisits(
                 placeRank: departmentRank,
-                optimization: busyDepartment.percentageOfPossibleOptimization.toString(),
+                text: "Department optimization: " + busyDepartment.percentageOfPossibleOptimization.toString().substring(0, 3) + '%',
+                maxY: 5,
               ),
               const SizedBox(height: 10.0,),
               InfectedTestedRatio(

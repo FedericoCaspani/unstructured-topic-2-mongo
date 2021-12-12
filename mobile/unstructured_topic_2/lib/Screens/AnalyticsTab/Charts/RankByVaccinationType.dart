@@ -20,7 +20,7 @@ class _RankByVaccinationTypeState extends State<RankByVaccinationType> {
       height: 200,
       width: double.infinity,
       child: AspectRatio(
-          aspectRatio: 1.7,
+          aspectRatio: 2,
           child: Card(
             elevation: 0,
             shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(4))),

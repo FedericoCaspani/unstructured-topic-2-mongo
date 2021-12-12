@@ -6,11 +6,13 @@ class RankAllPlacesWithMostVisits extends StatelessWidget {
   final double barWidth = 22;
   final List<PlaceRankDataModel> placeRank;
   final String text;
+  final double maxY;
 
   const RankAllPlacesWithMostVisits({
     Key? key,
     required this.placeRank,
-    required this.text}) : super(key : key);
+    required this.text,
+    required this.maxY}) : super(key : key);
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,7 @@ class RankAllPlacesWithMostVisits extends StatelessWidget {
                       child: BarChart(
                           BarChartData(
                               alignment: BarChartAlignment.center,
-                              maxY: 10,
+                              maxY: this.maxY,
                               minY: 0,
                               groupsSpace: 5,
                               barTouchData: BarTouchData(

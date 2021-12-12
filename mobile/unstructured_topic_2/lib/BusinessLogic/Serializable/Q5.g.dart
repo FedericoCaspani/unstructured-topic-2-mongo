@@ -9,11 +9,11 @@ part of 'Q5.dart';
 RankAgeVaccine _$RankAgeVaccineFromJson(Map<String, dynamic> json) =>
     RankAgeVaccine(
       ageCategory: json['ageCategory'] as String,
-      vaccineRatio: (json['vaccineRatio'] as num).toDouble(),
+      vaccinationRatio: (json['vaccinationRatio'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$RankAgeVaccineToJson(RankAgeVaccine instance) =>
     <String, dynamic>{
       'ageCategory': instance.ageCategory,
-      'vaccineRatio': instance.vaccineRatio,
+      'vaccinationRatio': instance.vaccinationRatio,
     };

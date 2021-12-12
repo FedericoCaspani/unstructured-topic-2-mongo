@@ -137,8 +137,9 @@ class API {
   // ratio/infected/health
   static Future<RatioInfected> ratioInfectedHealth(DateTime date) async {
     final DateFormat formatter = DateFormat('yyyy-MM-dd');
+    String dateString = formatter.format(date);
 
-    String request = backend + '/ratio/infected/health?date=' + formatter.format(date);
+    String request = backend + '/ratio/infected/health?date=2021-9-19';
 
     try {
       var response = await http.get(Uri.parse(request));
