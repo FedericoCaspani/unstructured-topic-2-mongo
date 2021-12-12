@@ -56,9 +56,7 @@ public class PersonService {
     public BusyDepartmentPercentage ratioInfectedTested(String date) {
         Optional<Ratio> ratioOptional = personRepository.infectedTestedRatio(date);
 
-        if (ratioOptional.isEmpty()) {
-            return null;
-        } else {
+        if (ratioOptional.isPresent()) {
             Ratio ratio = ratioOptional.get();
 
             double percentage = (ratio.getNumPos() / ratio.getNumTot()) * 100;
@@ -66,6 +64,8 @@ public class PersonService {
                     null,
                     percentage
             );
+        } else {
+            return null;
         }
     }
 
@@ -83,20 +83,13 @@ public class PersonService {
 
     public GreenPass validGreenPassVacine(String taxCode) {
         Optional<GreenPass> green = personRepository.validGreenPassVaccine(taxCode);
-        if (green.isEmpty()) {
-            return null;
-        } else {
-            return green.get();
-        }
+        return green.orElse(null);
     }
 
     public GreenPass validGreenPassSwab(String taxCode) throws ParseException {
         LocalDateTime now = LocalDateTime.now().minus(2, ChronoUnit.DAYS);
         Optional<GreenPass> green = personRepository.validGreenPassSwab(taxCode, Date.from(now.atZone(ZoneId.systemDefault()).toInstant()));
-        if (green.isEmpty()) {
-           return null;
-        }
-        return green.get();
+        return green.orElse(null);
     }
 
     public boolean checkPerson(String taxCode) {
