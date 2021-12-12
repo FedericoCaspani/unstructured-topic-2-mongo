@@ -1,8 +1,8 @@
-class BusyDepartment {
+class BusyDepartmentModel {
   final int id;
   final double percentageOfPossibleOptimization;
 
-  const BusyDepartment({
+  const BusyDepartmentModel({
     required this.id,
     required this.percentageOfPossibleOptimization
   });

@@ -4,7 +4,7 @@ import 'package:fl_chart/fl_chart.dart';
 
 class RankAllPlacesWithMostVisits extends StatelessWidget {
   final double barWidth = 22;
-  final List<PlaceRank> placeRank;
+  final List<PlaceRankDataModel> placeRank;
   final String text;
 
   const RankAllPlacesWithMostVisits({

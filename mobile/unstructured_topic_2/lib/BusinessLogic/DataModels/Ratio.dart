@@ -1,11 +1,13 @@
-class Ratio {
+class RatioModel {
   final int id;
   final double numTot;
   final double numPos;
+  final double percentage;
 
-  const Ratio({
+  const RatioModel({
     required this.id,
     required this.numTot,
-    required this.numPos
+    required this.numPos,
+    required this.percentage
   });
 }

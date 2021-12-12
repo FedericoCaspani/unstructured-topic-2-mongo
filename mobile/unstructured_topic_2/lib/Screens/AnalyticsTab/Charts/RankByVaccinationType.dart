@@ -4,7 +4,7 @@ import 'package:unstructured_topic_2/BusinessLogic/DataModels/VaccineType.dart';
 
 class RankByVaccinationType extends StatefulWidget {
 
-  final List<VaccineType> vaccineType;
+  final List<VaccineTypeModel> vaccineType;
   const RankByVaccinationType({Key? key, required this.vaccineType}) : super(key: key);
 
   @override
@@ -35,7 +35,7 @@ class _RankByVaccinationTypeState extends State<RankByVaccinationType> {
 
 class _BarChart extends StatelessWidget {
 
-  final List<VaccineType> vaccineType;
+  final List<VaccineTypeModel> vaccineType;
   final double barWidth = 22.0;
 
   const _BarChart({Key? key, required this.vaccineType}) : super(key: key);

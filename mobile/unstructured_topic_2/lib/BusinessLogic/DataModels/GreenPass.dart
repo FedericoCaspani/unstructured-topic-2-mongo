@@ -1,8 +1,8 @@
-class GreenPass {
+class GreenPassModel {
   final int id;
   final String date;
 
-  const GreenPass({
+  const GreenPassModel({
     required this.id,
     required this.date
   });

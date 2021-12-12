@@ -1,16 +1,22 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
+import 'package:unstructured_topic_2/BusinessLogic/API/API.dart';
 import 'package:unstructured_topic_2/BusinessLogic/DataModels/BusyDepartment.dart';
+import 'package:unstructured_topic_2/BusinessLogic/DataModels/Place.dart';
 import 'package:unstructured_topic_2/BusinessLogic/DataModels/PlaceRank.dart';
 import 'package:unstructured_topic_2/BusinessLogic/DataModels/RankAgeVaccine.dart';
 import 'package:unstructured_topic_2/BusinessLogic/DataModels/Ratio.dart';
 import 'package:unstructured_topic_2/BusinessLogic/DataModels/VaccineType.dart';
+import 'package:unstructured_topic_2/BusinessLogic/Serializable/Q1.dart';
+import 'package:unstructured_topic_2/BusinessLogic/Serializable/Q2.dart';
+import 'package:unstructured_topic_2/BusinessLogic/Serializable/Q5.dart';
 import 'package:unstructured_topic_2/Screens/AnalyticsTab/Charts/InfectedTestedRatio.dart';
 import 'package:unstructured_topic_2/Screens/AnalyticsTab/Charts/RankAgeCategories.dart';
 import 'package:unstructured_topic_2/Screens/AnalyticsTab/Charts/RankAllPlacesWithMostVisits.dart';
 import 'package:unstructured_topic_2/Screens/AnalyticsTab/Charts/RankByVaccinationType.dart';
 
 import 'Charts/RankByBusyDepartments.dart';
+import 'dart:math' as math;
 
 class AnalyticsMain extends StatefulWidget {
   const AnalyticsMain({Key? key}) : super(key: key);
@@ -23,12 +29,173 @@ class AnalyticsMain extends StatefulWidget {
 
 class _AnalyticsMainState extends State<AnalyticsMain> {
 
-  List<PlaceRank> placeRank = <PlaceRank>[];
-  List<VaccineType> vaccineType = <VaccineType>[];
-  BusyDepartment busyDepartment = const BusyDepartment(id: 1, percentageOfPossibleOptimization: 65.8);
-  List<PlaceRank> departmentRank = <PlaceRank>[];
-  Ratio ratio = const Ratio(id: 1, numTot: 121, numPos: 10);
-  List<RankAgeVaccine> rankAge = <RankAgeVaccine>[];
+  List<PlaceRankDataModel> placeRankAllVisits = <PlaceRankDataModel>[];
+  List<PlaceRankDataModel> placeRankTestVisits = <PlaceRankDataModel>[];
+  List<PlaceRankDataModel> placeRankVaccineVisits = <PlaceRankDataModel>[];
+
+  List<VaccineTypeModel> vaccineType = <VaccineTypeModel>[];
+
+  late BusyDepartmentModel busyDepartment;
+  List<PlaceRankDataModel> departmentRank = <PlaceRankDataModel>[];
+
+  late RatioModel ratio;
+
+  List<RankAgeVaccineModel> rankAge = <RankAgeVaccineModel>[];
+
+  @override
+  void initState() {
+    super.initState();
+    API.rankAllVisits().then((result) {
+      List<PlaceRankDataModel> placeRankLocal = [];
+      var id = 0;
+      for (PlaceRank p in result) {
+        placeRankLocal.add(
+          PlaceRankDataModel(
+              id: id,
+              count: p.count,
+              place: PlaceModel(
+                  address: p.place.address,
+                  departments: p.place.departments,
+                  entity: p.place.entity,
+                  gps: p.place.gps,
+                  name: p.place.name
+              ),
+              color: Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0)
+          )
+        );
+        id++;
+      }
+      setState(() {
+        placeRankAllVisits = placeRankLocal;
+      });
+    });
+    API.rankTestsVisits().then((result) {
+      List<PlaceRankDataModel> placeRankLocal = [];
+      var id = 0;
+      for (PlaceRank p in result) {
+        placeRankLocal.add(
+            PlaceRankDataModel(
+                id: id,
+                count: p.count,
+                place: PlaceModel(
+                    address: p.place.address,
+                    departments: p.place.departments,
+                    entity: p.place.entity,
+                    gps: p.place.gps,
+                    name: p.place.name
+                ),
+                color: Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0)
+            )
+        );
+        id++;
+      }
+      setState(() {
+        placeRankTestVisits = placeRankLocal;
+      });
+    });
+    API.rankVaccinesVisits().then((result) {
+      List<PlaceRankDataModel> placeRankLocal = [];
+      var id = 0;
+      for (PlaceRank p in result) {
+        placeRankLocal.add(
+            PlaceRankDataModel(
+                id: id,
+                count: p.count,
+                place: PlaceModel(
+                    address: p.place.address,
+                    departments: p.place.departments,
+                    entity: p.place.entity,
+                    gps: p.place.gps,
+                    name: p.place.name
+                ),
+                color: Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0)
+            )
+        );
+        id++;
+      }
+      setState(() {
+        placeRankVaccineVisits = placeRankLocal;
+      });
+    });
+    API.rankVaccineType().then((result) {
+      List<VaccineTypeModel> vaccineModelLocal = [];
+      var id = 0;
+      for (VaccineType p in result) {
+        vaccineModelLocal.add(
+          VaccineTypeModel(
+              id: id,
+              vaccine: p.vaccine,
+              count: p.count,
+              color: Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0)
+          )
+        );
+        id++;
+      }
+      setState(() {
+        vaccineType = vaccineModelLocal;
+      });
+    });
+    API.busyDepartmentPercentage().then((result) {
+      setState(() {
+        busyDepartment = BusyDepartmentModel(
+            id: result.id,
+            percentageOfPossibleOptimization: result.percentageOfPossibleOptimization
+        );
+      });
+    });
+    API.rankBusyDepartments().then((result) {
+      List<PlaceRankDataModel> placeRankLocal = [];
+      var id = 0;
+      for (PlaceRank p in result) {
+        placeRankLocal.add(
+            PlaceRankDataModel(
+                id: id,
+                count: p.count,
+                place: PlaceModel(
+                    address: p.place.address,
+                    departments: p.place.departments,
+                    entity: p.place.entity,
+                    gps: p.place.gps,
+                    name: p.place.name
+                ),
+                color: Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0)
+            )
+        );
+        id++;
+      }
+      setState(() {
+        departmentRank = placeRankLocal;
+      });
+    });
+    API.ratioInfectedHealth(DateTime.now()).then((result) {
+      setState(() {
+        ratio = RatioModel(
+            id: result.id,
+            numTot: result.numTot,
+            numPos: result.numPos,
+            percentage: result.percentage
+        );
+      });
+    });
+    API.rankByAgeVaccines().then((result) {
+      List<RankAgeVaccineModel> rankAgeLocal = [];
+      var id = 0;
+      for (RankAgeVaccine p in result) {
+        rankAgeLocal.add(
+          RankAgeVaccineModel(
+              id: id,
+              ageCategory: p.ageCategory,
+              vaccineRatio: p.vaccineRatio,
+              color: Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0)
+          )
+        );
+        id++;
+      }
+      setState(() {
+        rankAge = rankAgeLocal;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,17 +210,17 @@ class _AnalyticsMainState extends State<AnalyticsMain> {
             children: <Widget>[
               const SizedBox(height: 10.0,),
               RankAllPlacesWithMostVisits(
-                placeRank: placeRank,
+                placeRank: placeRankAllVisits,
                 text: "Rank All The Most Visited Places",
               ),
               const SizedBox(height: 10.0),
               RankAllPlacesWithMostVisits(
-                placeRank: placeRank,
+                placeRank: placeRankTestVisits,
                 text: "Rank The Most Visited Test Places",
               ),
               const SizedBox(height: 10.0),
               RankAllPlacesWithMostVisits(
-                placeRank: placeRank,
+                placeRank: placeRankVaccineVisits,
                 text: "Rank The Most Visited Vaccine Places",
               ),
               const SizedBox(height: 10.0,),
@@ -67,7 +234,7 @@ class _AnalyticsMainState extends State<AnalyticsMain> {
               InfectedTestedRatio(
                   infected: ratio.numPos.toInt(),
                   notInfected: ratio.numTot.toInt() - ratio.numPos.toInt(),
-                  ratio: ratio.numPos / ratio.numTot,
+                  ratio: ratio.percentage
               ),
               const SizedBox(height: 10.0,),
              RankAgeCategories(rankAgeCategories: rankAge),

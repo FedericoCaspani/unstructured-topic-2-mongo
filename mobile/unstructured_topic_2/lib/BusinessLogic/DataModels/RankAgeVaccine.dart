@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class RankAgeVaccine {
+class RankAgeVaccineModel {
   final int id;
   final String ageCategory;
   final double vaccineRatio;
   final Color color;
 
-  const RankAgeVaccine({
+  const RankAgeVaccineModel({
     required this.id,
     required this.ageCategory,
     required this.vaccineRatio,

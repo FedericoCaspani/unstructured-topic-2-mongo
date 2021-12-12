@@ -53,15 +53,17 @@ public class PersonService {
         return personRepository.tooBusyDepartments();
     }
 
-    public BusyDepartmentPercentage ratioInfectedTested(String date) {
+    public RatioPercentage ratioInfectedTested(String date) {
         Optional<Ratio> ratioOptional = personRepository.infectedTestedRatio(date);
 
         if (ratioOptional.isPresent()) {
             Ratio ratio = ratioOptional.get();
 
             double percentage = (ratio.getNumPos() / ratio.getNumTot()) * 100;
-            return new BusyDepartmentPercentage(
-                    null,
+            return new RatioPercentage(
+                    0,
+		    ratio.getNumTot(),
+		    ratio.getNumPos(),
                     percentage
             );
         } else {

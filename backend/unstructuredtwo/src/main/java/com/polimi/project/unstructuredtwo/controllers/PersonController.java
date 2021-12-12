@@ -74,7 +74,7 @@ public class PersonController {
 
     @GetMapping(value = {"/api/v1/ratio/infected/health"}, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<BusyDepartmentPercentage> infectedHealthyRatio(@RequestParam(name = "date") String date) {
+    public ResponseEntity<RatioPercentage> infectedHealthyRatio(@RequestParam(name = "date") String date) {
         return Optional
                 .ofNullable(personService.ratioInfectedTested(date))
                 .map(application -> ResponseEntity.ok().body(application))

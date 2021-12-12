@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:unstructured_topic_2/BusinessLogic/API/API.dart';
 
 import '../../constraints.dart';
 
@@ -14,6 +15,7 @@ class GreenPassChoose extends StatefulWidget {
 
 class _GreenPassChooseState extends State<GreenPassChoose> {
   String? scanResult;
+  late bool valid;
 
   @override
   Widget build(BuildContext context) {
@@ -98,11 +100,47 @@ class _GreenPassChooseState extends State<GreenPassChoose> {
     }
 
     if (choice == 1) {
-      // TODO: check green pass vacc
+      API.validVaccine(scanResult!).then((result) {
+        if (result.date == "1977") {
+          setState(() {
+            valid = false;
+          });
+        } else {
+          setState(() {
+            valid = true;
+          });
+        }
+      });
     } else {
-      // TODO: check green pass test
+      API.validTest(scanResult!).then((result) {
+        if (result.date == "1977") {
+          setState(() {
+            valid = false;
+          });
+        } else {
+          setState(() {
+            valid = true;
+          });
+        }
+      });
     }
 
+    if (!valid) {
+      showDialog(context: context, builder: (context) => _buildPopupDialog(context, "Green Pass is not valid!"));
+    } else {
+      showDialog(context: context, builder: (context) => _buildPopupDialog(context, "Green Pass is valid :)"));
+    }
+
+  }
+
+  Widget _buildPopupDialog(BuildContext context, String result) {
+    return AlertDialog(
+      title: Text(result),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+      ),
+    );
   }
 
 }

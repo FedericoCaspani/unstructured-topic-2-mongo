@@ -1,13 +1,12 @@
-import 'package:flutter/material.dart';
 
-class Place {
+class PlaceModel {
   final String address;
   final String departments;
   final String entity;
   final String gps;
   final String name;
 
-  const Place({
+  const PlaceModel({
     required this.address,
     required this.departments,
     required this.entity,

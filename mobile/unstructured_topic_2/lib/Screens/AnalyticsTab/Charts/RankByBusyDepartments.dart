@@ -4,7 +4,7 @@ import 'package:unstructured_topic_2/BusinessLogic/DataModels/PlaceRank.dart';
 
 class RankByBusyDepartments extends StatefulWidget {
 
-  final List<PlaceRank> placeRank;
+  final List<PlaceRankDataModel> placeRank;
   final String optimization;
   const RankByBusyDepartments({Key? key, required this.placeRank, required this.optimization}) : super(key: key);
 
@@ -32,7 +32,7 @@ class _RankByBusyDepartmentState extends State<RankByBusyDepartments> {
 
 class _BarChart extends StatelessWidget {
 
-  final List<PlaceRank> placeRank;
+  final List<PlaceRankDataModel> placeRank;
   final double barWidth = 22.0;
   final String text;
 

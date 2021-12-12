@@ -4,7 +4,7 @@ import 'package:unstructured_topic_2/BusinessLogic/DataModels/RankAgeVaccine.dar
 
 class RankAgeCategories extends StatelessWidget {
   final double barWidth = 22;
-  final List<RankAgeVaccine> rankAgeCategories;
+  final List<RankAgeVaccineModel> rankAgeCategories;
 
   const RankAgeCategories({
     Key? key,
